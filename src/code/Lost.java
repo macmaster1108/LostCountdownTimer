@@ -24,9 +24,10 @@ public class Lost {
 	JPanel panel;
 	int slidenumber = 350;
 	long t0,t1;
-	long minute = 10;
-	long second = 10;
-	long halfsecond = 2;
+	long minute = 50;//6000
+	long second = 300;//300
+	long realsecond = 999;
+	long halfsecond = 50;
 
 	public Lost(){
 		Scanner input = new Scanner(System.in);//Scanner initialization
@@ -49,7 +50,8 @@ public class Lost {
 
 
 		//SCANNER----------------------------------------------------
-		while(slidenumber>001){
+		while(slidenumber>000){
+			//System.out.println(slidenumber);
 
 			if(slidenumber>246){//108:00-005:00
 				t0=System.currentTimeMillis();
@@ -57,70 +59,112 @@ public class Lost {
 					t1=System.currentTimeMillis();
 				}
 				while (t1-t0<minute);
-				slidenumber--;
 				updater(slidenumber);
+				slidenumber--;
+
 			}
 
-			else if(slidenumber>066){//004:00-001:01
-				t0=System.currentTimeMillis();
-				do{
-					t1=System.currentTimeMillis();
+			else if(slidenumber>65){//004:00-001:01   066 = 1:00
+				if(slidenumber%4 == 0){
+					t0=System.currentTimeMillis();
+					do{
+						t1=System.currentTimeMillis();
+					}
+					while (t1-t0<second);
+					ps.PlaySounds("Sounds/scannerbeep.wav");
+					updater(slidenumber);
+					slidenumber--;
+
 				}
-				while (t1-t0<second);
-				slidenumber--;
-				updater(slidenumber);
-				ps.PlaySounds("Sounds/scannerbeep.wav");
+				else{
+					t0=System.currentTimeMillis();
+					do{
+						t1=System.currentTimeMillis();
+					}
+					while (t1-t0<realsecond);
+					updater(slidenumber);
+					slidenumber--;
+				}
 			}
-			else if(slidenumber>016){//001:00-000:10
+			else if(slidenumber>16){//001:00-000:11   016 = 0:10
+				if((slidenumber-2)%3 == 0){
 				t0=System.currentTimeMillis();
 				do{
 					t1=System.currentTimeMillis();
 				}
 				while (t1-t0<second);
-				slidenumber--;
-				updater(slidenumber);
 				ps.PlaySounds("Sounds/seconds.wav");
+				updater(slidenumber);
+				slidenumber--;
+
+				}
+				else{
+					t0=System.currentTimeMillis();
+					do{
+						t1=System.currentTimeMillis();
+					}
+					while (t1-t0<realsecond);
+					updater(slidenumber);
+					slidenumber--;
+					
+				}
 
 			}
-			else if(slidenumber>06){//000:10-000:00
+			else if(slidenumber>6){//000:10-000:00
 				t0=System.currentTimeMillis();
 				do{
 					t1=System.currentTimeMillis();
 				}
 				while (t1-t0<halfsecond);
-				slidenumber--;
-				updater(slidenumber);
 				ps.PlaySounds("Sounds/seconds.wav");
+				updater(slidenumber);
+				slidenumber--;
+
 
 			}
-			else{//000:00-hieroglyphs
+			else if(slidenumber>000){//000:00-hieroglyphs
+				t0=System.currentTimeMillis();
+				do{
+					t1=System.currentTimeMillis();
+				}
+				while (t1-t0<minute);
+				updater(slidenumber);
+				slidenumber--;
 
+			}else{
+				slidenumber--;
 			}
 
 
 
 		}//the timer has reached the hieroglyphics
-		for(int i = 0; i<20;i++){
+		for(int i = 0; i<10;i++){
 			System.out.println("System Failure");
+			t0=System.currentTimeMillis();
+			do{
+				t1=System.currentTimeMillis();
+			}
+			while (t1-t0<realsecond);
 		}
+		ps.PlaySounds("Sounds/WarpUp.wav");
 
 
 
-		//		while (input.hasNext()) {
-		//
-		//
-		//			if (name.equals("4 8 15 16 23 42")) {
-		//				t0=System.currentTimeMillis();
-		//				do{
-		//					t1=System.currentTimeMillis();
-		//				}
-		//				while (t1-t0<900);
-		//				ps.PlaySounds("Sounds/shuffling.wav");
-		//				slidenumber = 350;
-		//
-		//			}
-		//
-		//		}
+				while (input.hasNext()) {
+		
+		
+					if (name.equals("4 8 15 16 23 42")) {
+						t0=System.currentTimeMillis();
+						do{
+							t1=System.currentTimeMillis();
+						}
+						while (t1-t0<900);
+						ps.PlaySounds("Sounds/shuffling.wav");
+						slidenumber = 350;
+		
+					}
+		
+				}
 	}
 
 	public void updater(int slidenumber){
@@ -145,8 +189,7 @@ public class Lost {
 		panel.repaint();
 		frame.validate();
 		frame.repaint();
-		
-		System.out.println(picname);
+
 	}
 
 }
