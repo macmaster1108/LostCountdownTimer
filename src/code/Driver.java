@@ -1,6 +1,6 @@
 package code;
 
-
+//I use drivers to separate main just for consistency
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
